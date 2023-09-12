@@ -1,0 +1,389 @@
+sept-12th/2023
+
+java:
+`````
+java is an oo  programming langauge.
+
+to develop the software.
+
+what is software/application:
+
+sunmicrosystem 
+
+desktop/standalone application 
+
+   -results are not sharable across the globe. 
+   
+distributed/intenet based application .
+
+using java, we can develop both type of applications
+
+
+ 1995
+ 13 features 
+ java is platform independent 
+ 
+ 
+ windows
+ 
+ .java(source code) -> developer 
+ 
+   as well as compiler 
+   
+   java compiler -> whether programmer follows 
+   syntaxes or not?
+   
+   
+    compiler will generate .class file for your
+	.java file. 
+	
+	
+	.class file contains -> byte code.
+	
+	
+	byte code: 
+	
+	 byte code cannot understanable by human beings.
+	 
+	 jvm -> java virtual machine
+	 
+	platform independent
+
+   
+steps to write the java program:
+
+
+www.oralce.com 
+
+download and install jdk in your machine
+select the editor (notepad,notepad++,eclipse...)
+write the java program 
+save the java program (.java)-source code
+compile the java program (.class)-byte code 
+    -java compiler 
+run/execute the java program 
+    -jvm 
+	
+	
+jdk,jre & jvm 
+
+jdk stands for java development kit 
+ which provides both dev environment and as well 
+ as runtime environment.
+ 
+jre stands for java runtime environment , name itself
+is saying it provides only runtime environment
+using this we can execute/run the java applications.
+
+
+jvm stands for java virtual machine using this 
+we can execute the java program .
+
+
+	
+
+
+
+
+
+java is case sensitive.
+
+structure of the java program:
+
+  class Welcome
+  {
+     public static void main(String[] args)
+	 {
+	  System.out.println("welcome to vits");   
+	 }
+  
+  }
+  
+
+
+
+
+
+
+
+
+   
+	 
+	 
+	 
+	 
+	 
+	 
+ 
+ .class 
+ 
+ 
+ variablie initialization 
+ 
+  
+ <datatypename> <variablename> = <value>;
+ 
+ 
+ 
+ int roll_no = 3131;
+ 
+4 categories
+
+integer
+
+   byte,short,int,long
+   
+   
+   -to store integer values.
+
+ every datatype is maintaining their own 
+ size and range.
+ 
+ byte -> 1 byte (8 bits)
+ range of byte datatype -> -128 to 127
+ 
+ byte b = 128;
+ 
+ 
+ -2^n-1 to 2^n-1 -1
+ -2^7 to 2^7 -1
+ 
+ -128 to 127
+ 
+ byte 1 byte
+ short 2 bytes
+ 
+ int 4 bytes
+ long 8 bytes
+ 
+   
+
+float - 4 bytes, double - 8bytes
+
+   123.89;
+   
+float f = 6.7876786f;
+
+double d = 6.776576576576567;
+
+
+ char c = 'a';(2 bytes)
+ 
+ 
+ 
+ 
+
+
+
+character
+
+
+boolean 
+
+  -To store logical values either true or false.
+  
+  
+ boolean b = true; (not defined)
+ boolean x = false;
+ 
+ 
+ method:
+ method is the place where we are writing the logic 
+ which is used to perfrom some operation based 
+ on the requirement.
+ 
+ 
+ syntax:
+ ```````
+ 
+ [accessmodifier] <returntype> <methodname>([parms])
+ {
+    //logic 
+ }
+ 
+ define one method which gives sum of two numbers.
+ 
+ void getSum()
+ {
+   System.out.println(5+7);   
+ }
+ 
+ 
+ define one method which returns your salary?
+ 
+ double getSalary(){
+ 
+   return 46000.00;
+   
+ }
+   
+ returntype and return value must be compatible
+ with each other.
+ 
+ 
+ 
+ 
+ define one method which takes two integer parameters
+ and gives their multiplication?
+ 
+    void getMultiplication(int x, int y){
+	
+	System.out.println(x*y);
+	}
+
+
+define one method which takes firstname and last name 
+as parameters and returns their fullname?
+
+       String getFullName(String fname,String lname)
+	   {
+	     return fname+lname;
+	   }
+	   
+oops principles 
+
+  class 
+  object
+
+  
+class looks like 
+
+ object:
+ 
+  instance of class is known as object 
+  
+ whenever we create the object, then only memory 
+ will be created.
+ 
+ 
+ syntax to create the object:
+ <classname> <objectname> = new <classname>();
+ 
+ ex:
+ 
+   Test1 obj = new Test1();
+   
+   whenever we create the object, memory will be 
+   allocated for the non-static/instance variables which 
+   we declared inside the class. 
+   
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ class Test1{
+	  //instance variables
+	 
+	   int roll_no=3131;
+	   String stname="vandhana";
+	   
+	   //static variables
+	   static String collegeName="vits";
+	  
+	  //define  method 
+	  //non-static or instance method
+	  void displayStudentInfo(){
+		   //instance area 
+		  System.out.println("student rollno is: " + roll_no);
+	      System.out.println("student name is: " + stname);
+	      System.out.println("college name is: " + Test1.collegeName);
+           
+	 }
+	 
+	 
+	  public static void main(String[] args)
+	  {
+		  //static area
+		  Test1 obj = new Test1();
+		  
+		  System.out.println(obj.roll_no);
+		  System.out.println(obj.stname);
+		  
+		  System.out.println(collegeName);
+		  
+		  System.out.println("===============");
+		  //invoke the displayStudentInfo()
+		  obj.displayStudentInfo();
+		  
+	  }
+  
+ }
+ 
+ 
+ constructor:
+ ````````````
+ 
+ constructor is meant for initializing the object.
+ 
+ system defined default constructor meant for 
+ intializing the default values.
+ 
+ user defined default constructor meant for 
+ initializing our own values.
+ 
+ rules:
+ constructor should not return anything even void also.
+ 
+ constructor name and class name must be same. 
+ 
+sum(int x, int y)
+{
+}
+
+sum()
+{
+}
+
+Test1()
+{
+}
+
+ 
+  class Test1{
+	  int x;
+	  String y;
+	  
+	  public  Test1(int x, String y ){
+		  this.x=x;
+		  this.y=y;
+		 
+	  }
+	  
+	  
+	  public void displayValue()
+	  {
+		  System.out.println("x value is: " + x);
+		  System.out.println("y value is: " + y);
+	  }
+	   
+	  public static void main(String[] args)
+	  {
+		  
+	      Test1 obj = new Test1(100,"rk");
+		 
+		  obj.displayValue();
+	  }
+	  
+ }
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
