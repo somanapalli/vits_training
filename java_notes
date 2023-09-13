@@ -604,7 +604,235 @@ public class Test4 extends Test3 {
 	
 }
 
+encapsulation:
+``````````````
 
+the process of wrapping up of variables and methods into a single unit. 
+class is the best example for encapsulation.
+
+ data hiding 
+ 
+class Test1
+{
+
+}
+
+class contains variables 
+
+variables must be private
+for each and every variable we require public setter methods and 
+public getter methods.
+
+setter methods -> to set the values into an object
+getter methods -> to get the values from the object. 
+
+
+
+Student.java:
+`````````````
+public class Student
+{
+	//variables
+	
+	private int stid;
+	private String stname;
+	
+	public int getStid() {
+		return stid;
+	}
+	public void setStid(int stid) {
+		this.stid = stid;
+	}
+	public String getStname() {
+		return stname;
+	}
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+
+}
+
+Test7.java:
+````````````
+
+public class Test7 {
+
+	public static void main(String[] args) {
+		
+		Student obj = new Student();
+		
+		obj.setStid(100);
+		
+		obj.setStname("rama");
+		
+		System.out.println("student id is: " + obj.getStid());
+		System.out.println("student name is: " + obj.getStname());
+		
+	}
+}
+
+abstraction:
+```````````
+
+   abstraction is the process of retrieving the essential details 
+   by hiding the logic(implementation details)
+   
+   
+   ->by using two concepts
+   
+   1.abstract class
+   2.interface
+   
+   
+abstract class:
+
+   abstract class Test1{
+   
+     public abstract void sum(int x, int y);
+	 
+   }
+   
+   
+   0 to 100%
+   
+   
+  Test8.java:
+``````````````
+
+//abstract class where specification is available
+public abstract class Test8 {
+	
+public abstract void sum(int x, int  y);
+	
+
+}
+
+
+Test9.java:
+```````````
+  
+//implementation class cum child class cum business logic class 
+public class Test9 extends Test8 {
+
+	@Override
+	public void sum(int x, int y) {
+		System.out.println("sum is: " +(x+y));
+
+	}
+
+}
+
+Test10.java:
+```````````
+
+public class Test10 extends Test8 {
+
+	@Override
+	public void sum(int x, int y) {
+		System.out.println("substraction is : " +(x-y));
+	}
+
+	public static void main(String[] args) {
+		
+		
+		Test8 obj1 = new Test9();
+		Test8 obj2 = new Test10();
+		
+		obj1.sum(2, 3);
+		
+		obj2.sum(2, 3);
+		
+		
+		
+		
+	}
+}
+
+   
+   
+   
+   
+   
+interface:
+``````````
+   interface contains only abstract methods 
+   
+  syntax:
+  
+     interface <interfacename>
+	 {
+	 
+	    //constants
+		//abstract methods 
+	 }
+   
+   
+   by default interface variables are public static final 
+   by default interface methods are public abstract 
+   
+   
+ Bank.java:
+````````````
+ 
+public interface Bank {
+
+	double rateOfInterest();
+}
+
+SBI.java:
+``````````
+
+public class SBI implements Bank{
+
+	@Override
+	public double rateOfInterest() {
+		// TODO Auto-generated method stub
+		return 5.5;
+	}
+
+}
+
+
+HDFC.java:
+``````````
+
+public class HDFC implements Bank {
+
+	@Override
+	public double rateOfInterest() {
+		// TODO Auto-generated method stub
+		return 7.5;
+	}
+
+}
+
+Test12.java:
+```````````````
+
+//execution logic class
+public class Test12 {
+	
+	public static void main(String[] args) {
+		
+		
+		Bank obj = new SBI();
+		Bank obj1 = new HDFC();
+		
+		System.out.println("SBI rate of interest is: " + obj.rateOfInterest());
+		System.out.println("HDFC rate of interst is : " + obj1.rateOfInterest());
+		
+	}
+
+}
+
+
+
+
+
+
+   
+   
+   
 
 
 
