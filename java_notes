@@ -377,7 +377,236 @@ Test1()
  
  
  
+ constructor chaining:
  
+constructor calling is from top to bottom where as execution is from 
+bottom to top.
+
+
+public class Test2 {
+	
+	Test2(){
+		//call current class single parametrized constructor
+		this(4);
+		System.out.println("iam from default constructor");
+		
+	}
+	
+	Test2(int x){
+		//call current class double parameterized constructor
+		this(10,"rk");
+		System.out.println("iam from single parameterized constructor");
+	}
+	
+	Test2(int x, String y)
+	{
+		System.out.println("iam from double parameterized constructor");
+	}
+	
+	public static void main(String[] args) {
+		
+		Test2 obj1 = new Test2();
+		//Test2 obj2 = new Test2(9);
+		//Test2 obj3 = new Test2(7,"rk");
+	}
+
+}
+
+
+
+java is object oriented programming language
+
+
+   it follows oops principles
+   
+omg organization (object management group)-canadian organization 
+
+ inheritance
+ polymorphism 
+ encapsulation 
+ abstraction 
+ 
+reusabiility
+
+inheritance:
+
+
+inheritance is the process of taking the properties from parent class to 
+child class. 
+
+
+//parent class 
+ class Test1
+ {
+   public void sum(int x, int y)
+   { 
+      System.out.println("sum is: " +(x+y));
+	}
+ }
+
+//child class 
+ class Test2 extends Test1
+ {
+ 
+    public static void main(String[] args)
+	{
+	     Test2 obj = new Test2();
+		 obj.sum();
+	}
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ polymorphism:
+ `````````````
+ 
+ many forms. 
+ 
+ compile time polymorphism
+ runtime polymorphism
+ 
+ 
+ using two concepts
+ 
+  1.method overloading - compiletime polymorphism
+  2.method overriding  - runtime polymorphism
+  
+  
+  method overloading:
+  
+    
+	  method name is same 
+	  but signature is different 
+	  
+	  signature:
+	    no.of parameters
+		type of parmaeters
+		order of parmaeters
+		
+		
+ sum(int x, int y)
+ {
+ }
+ 
+ sum(float x, float y)
+ {
+ }
+ 
+ sum(double x, double y)
+ {
+ }
+ 
+ 
+ sum(4,5);
+ sum(5.6f,4.5f)
+ sum(8.9,6.7)
+ 
+
+readiblity of the program gets increased.
+
+
+
+example:
+
+
+public class Test6 {
+
+	public void sum(int x, int y) {
+		System.out.println("integer sum is: " +(x+y));
+	}
+	
+	public void sum(float x, float y)
+	{
+		System.out.println("float sum is: " +(x+y));
+	}
+	
+	public void sum(double x, double y)
+	{
+		System.out.println("double sum is: " +(x+y));
+	}
+	
+	
+	
+	
+	public static void main(String[] args) {
+		
+		Test6 obj;//object declaration 
+		obj = new Test6();//object referencing
+		
+		obj.sum(4, 5);
+		obj.sum(8.7f,5.6f);
+		obj.sum(8.9,5.6);
+	}
+
+}
+
+
+
+
+
+
+
+
+method overriding:
+
+ method name is same
+ but logic/body is different from parent class to child class.
+ 
+ 
+ class Parent{
+ marriage()
+ {
+   //logic 1
+ }
+ }
+ 
+ class Child extends Parent{
+ 
+  marriage()
+  {
+   //logic 2
+  }
+  
+ }
+ 
+ 
+
+//child class
+public class Test4 extends Test3 {
+
+	@Override
+	public void sum(int x, int y)
+	{
+		System.out.println("substraction is: : " + (x-y));
+	}
+	public static void main(String[] args) {
+		
+		
+		//case1 :valid: Test4 obj1 = new Test4();
+		
+		//case2: Test3 obj2 = new Test3();
+		
+	  Test3 obj3;
+	  obj3= new Test4();
+	    
+	  obj3.sum(4, 5);
+	    //case 4: Test4 obj4 = new Test3();
+	    
+	    
+	    
+	}
+	
+	
+}
+
+
+
+
 
 
 
