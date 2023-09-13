@@ -826,12 +826,138 @@ public class Test12 {
 }
 
 
+ super keyword:
+ 
+ suepr is the java reserved keyword.
+ 
+ 
+  super refering parent class properties.
+  
+  
+
+to refer the parent class variable 
+syntax:
+  super.<parentclassvariablename>
+  
+  
+  Test3.java:
+  ```````````
+  //parent class
+public class Test3 {
+
+	 int x=100;
+}
+
+Test4.java:
+````````````
+//child class
+public class Test4 extends Test3 {
+
+	 int x = 200;
+	 
+	 public void display()
+	 {
+		 System.out.println(x);
+		 System.out.println(super.x);
+		 
+		 
+	 }
+	public static void main(String[] args) {
+
+		
+		Test4 obj = new Test4();
+		obj.display();
+	}
+
+}
 
 
 
+super at method:
 
+
+   super.<parentclassmethod>();
+
+Test3.java:
+```````````
+//parent class
+public class Test3 {
+
+	public void sum(int x, int y)
+	{
+		System.out.println("integer sum is: " + (x+y));
+	}
+}
+
+Test4.java:
+```````````
+
+//child class
+public class Test4 extends Test3 {
+
+	 @Override
+	 public void sum(int x, int y)
+	 {
+		System.out.println("integer substraction is: " +(x-y));
+		
+		//invoke parent class sum method using super keyword
+		
+		super.sum(6, 5);
+	 }
+	public static void main(String[] args) {
+
+		
+		Test4 obj = new Test4();
+		obj.sum(3, 4);
+	}
+
+}
+
+
+super at constructor level:
+ 
+  constructor should not be inherited.
+  
+  writing the super() is optional to invoke parent class 
+  default constructor.
+  
+  
+  writing the super(..) is mandatory to invoke parent class 
+  paramerterized constructor(s).
+  
    
-   
+  Test3.java:
+```````````
+//parent class
+public class Test3 {
+
+	public Test3()
+	{
+		System.out.println(" default constructor-parent class");
+	}
+}
+
+Test4.java:
+```````````
+  //child class
+public class Test4 extends Test3 {
+
+	public Test4()
+	{
+		//invoking parent class default constructor
+		//super();
+		System.out.println("default constructor -child class");
+	}
+	
+	public static void main(String[] args) {
+
+		
+		Test4 obj = new Test4();
+		
+	}
+
+}
+
    
 
 
