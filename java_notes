@@ -959,6 +959,72 @@ public class Test4 extends Test3 {
 }
 
    
+sept 14th/day-3
+```````````````
+
+package:
+````````
+    collection of classes, interfaces, and sub packages
+	
+	
+
+package com.vits;
+
+public class Test1 {
+	
+ public void sum(int x, int y)
+	{
+		System.out.println("sum is : "  + (x+y));
+	}
+	
+	
+
+}
+
+
+package com.vits;
+
+public class Test2 {
+	
+	public static void main(String[] args) {
+		
+		Test1 obj  = new Test1();
+		
+		obj.sum(3,4);
+		
+	}
+
+}
+
+
+
+package com.rsr;
+import com.vits.*;
+public class Test2 {
+	
+	
+	public static void main(String[] args) {
+		
+		Test1 obj = new Test1();
+		
+		obj.sum(3, 4);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
