@@ -1323,16 +1323,116 @@ public class InvalidProductException extends Exception{
 }
 
 
+cfw:
+    
+	int x[]={100,200};
+	
+	arrays are not following proper datastructure.
+	in ararys, for every operation we have to write the 
+	logic manually.
+	
+	
+	
+	
+	only we are allowed to store homogenious data.
+	
+	   using arrays, it is not possible
+	   
+	   using collections , it is possible.
+	   
+	because of drawbacks of arrays we are moving to 
+collection framework .
+
+	
+array size is fixed in nature.
 
 
 
+to add both homogenious and heterogenous objects into a single 
+object.
+
+ to work this cfw, we are going to use 
+ some predefined interfaces and predefined classes. 
+ 
+ available in java.util package.
+ 
+ 
+                       Collection 
+					   
+					      there is no implementation class 
+						  
+					   
+					       
+ List
+                       Queue
+                                               Set
+                                              SortedSet
+ etc..
+ 
+ interface List extends Collection 
+ {
+ }
+ 
+->it is accepting both homogenious objects and heterogenous 
+  objects
+->insertion order is preserved
+
+->duplicates are allowed
+
+->null insertion is also possible.
 
 
 
+  List l = new List();
+  
+  ->ArrayList
+  ->LinkedList
+  ->Vector
+  ->Stack 
+  
+  
+class ArrayList implements List extends Collection 
+{
+}
 
+package com.collections;
 
+import java.util.LinkedList;
 
+public class Test1 {
+	
+	public static void main(String[] args) {
+		
+		
+		//create the object of ArrayList
+		
+		LinkedList al = new LinkedList();
+		
+		System.out.println(al);
+		al.add("rama");
+		al.add(10);
+		al.add(true);
+		al.add(8.9);
+		al.add(8.7f);
+		al.add(10);
+		al.add(null);
+		
+		
+		System.out.println(al.get(0));
+		System.out.println("size is : " + al.size());
+		
+		System.out.println(al.remove());
+		System.out.println(al.remove(0));
+		System.out.println(al.size());
+		
+		System.out.println(al);
+		
+		al.add(0,"rama");
+		System.out.println(al);
+		
+	}
 
+}
 
 
 
