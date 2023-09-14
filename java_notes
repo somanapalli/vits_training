@@ -1020,6 +1020,164 @@ public class Test2 {
 
 
 
+i want to perform the sum of two numbers 
+
+ how can i pass dynamic data?
+ 
+  package com.runtimeargs;
+
+public class Test1 {
+	
+	public static void main(String[] args) {
+		
+		
+		String s1= args[0];
+		String s2 = args[1];
+		
+		int x = Integer.parseInt(s1);
+		int y = Integer.parseInt(s2);
+		int z = x+y;
+		
+		System.out.println("result is: " + z);
+	}
+
+}
+
+
+example:
+````````
+package com.loops;
+
+public class Test1 {
+	
+	public static void main(String[] args) {
+		
+		int x[]= {100,200,300,400,500};
+	
+		for(int i=0;i<x.length;i++)
+		{
+			System.out.println(x[i]);
+		}
+		
+		System.out.println("====================");
+		
+		for(int y:x)
+		{
+			System.out.println(y);
+		}
+		
+	}
+
+}
+
+
+
+if,ifelse,ifelseif,swtichcase,for,while,dowhile,foreach.
+
+daily 3 questions 
+
+  
+exception handling:
+```````````````````
+
+   errors
+   
+      compiletime errors-> compiler
+	  runtime errors ->exception 
+	  if you make any mistake at your logic->jvm 
+	  
+	  enter first number: 4
+	  enter second number: abc
+	  
+	  result: 8
+	  
+	 ...
+	 ...  int x = 100/0;
+	 ...
+	 ...
+	 ...
+	 1000 lines of code 
+
+
+
+
+	 
+	1.program terminated abnormally 
+    	
+	2.we will get system error messages which are not understanable by 
+	  end user  which is not recommended .
+	  
+	
+to resolve above 2 issues, we have to handle the exceptions.
+
+ how can we handle the exceptions in java?
+    
+	     using some java reserved keywords
+		 
+		 
+		 1.try
+		 
+		 2.catch
+		 
+		 3.finally
+		 
+		 4.throws
+		 
+		 5.throws
+		 
+	try
+catch
+ 
+ 
+
+package com.exceptions;
+
+public class Test1 {
+	
+	public static void main(String[] args) {
+		int x=100;
+		int y = 0;
+		try {
+		 int z = x/y;
+		 System.out.println("division is: " + z);	
+		}
+		
+		catch(ArithmeticException ae)
+		{
+			System.out.println("don't enter zero as denominator");
+		}
+		System.out.println("rest statements executed");
+		System.out.println("rest statements executed");
+		System.out.println("rest statements executed");
+		System.out.println("rest statements executed");
+		System.out.println("rest statements executed");
+	
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
