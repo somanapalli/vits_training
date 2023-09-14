@@ -1156,6 +1156,62 @@ public class Test1 {
 
 }
 
+  
+ example:
+ `````````
+ package com.exceptions;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Test1 {
+	
+	public static void main(String[] args) {
+		try {
+		Scanner s = new Scanner(System.in);
+		
+	   
+		System.out.println("enter first number");
+		
+		int x = s.nextInt();
+		
+		System.out.println("enter second number");
+		
+		int y = s.nextInt();
+		
+		int z = x/y;
+		
+		System.out.println("division is : " + z);
+		}
+		
+	
+		catch(Exception  re)
+		{
+			
+			if(re instanceof ArithmeticException)
+			{
+				System.out.println("dont enter zero as denominator");
+			}
+			
+			if(re instanceof InputMismatchException)
+			{
+				System.out.println("please enter only numeric values");
+			}
+		}
+		finally {
+			System.out.println("finally block executed always");
+		}  
+		
+		System.out.println("rest statements executed");
+		System.out.println("rest statements executed");
+		System.out.println("rest statements executed");
+		System.out.println("rest statements executed");
+		System.out.println("rest statements executed");
+	
+		
+	}
+
+}
 
 
 
@@ -1168,6 +1224,103 @@ public class Test1 {
 
 
 
+
+
+throws is a java reserved keyword which gives an indication to 
+the calling function to keep the called function under try and 
+catch block.
+
+
+Test2.java:
+```````````
+package com.exceptions;
+//called program
+public class Test2 {
+	
+	//called function 
+	public void division() throws ArithmeticException
+	{
+		int z = 100/0;
+		
+		System.out.println("division is : " +z);
+	}
+
+}
+
+Test3.java:
+````````````
+package com.exceptions;
+//calling program 
+public class Test3 {
+   //calling function
+	public static void main(String[] args) {
+		
+		Test2 obj = new Test2();
+		try {
+		obj.division();
+		}
+		catch(ArithmeticException ae)
+		{
+			System.out.println("dont enter zero as denominator");
+		}
+	
+		
+	}
+}
+
+throw:
+```````
+throw is a java reserved keywords which is used to 
+throw an exception explicitly.
+
+ thorwing an exceptioin is nothing but creating an object.
+ 
+ syntax:
+ 
+   throw new <exceptionclassname>();
+   
+   throw new ArithmeticException();
+   
+
+Test4.java:
+`````````````
+package com.exceptions;
+
+public class Test4 {
+	
+	public void checkProduct(int weight) {
+		
+		if(weight>100) {
+			System.out.println("product is valid");
+			
+		}
+		else
+		{
+			try {
+			throw new InvalidProductException();
+			}
+			catch(InvalidProductException ip)
+			{
+				System.out.println("product weight must be greater than 100kgs");
+			}
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		Test4 obj = new Test4();
+		obj.checkProduct(20);
+	}
+
+}
+
+InvalidProductException.java:
+``````````````````````````````
+package com.exceptions;
+
+public class InvalidProductException extends Exception{
+}
 
 
 
