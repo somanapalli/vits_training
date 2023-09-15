@@ -1714,6 +1714,180 @@ public class Test2 {
 	}
 }
 
+hierarchy of TreeSet:
+```````````````````````
+class TreeSet implements  SortedSet extends Set extends Colletion 
+{
+}
+ 
+    
+->it doesn't allows heterogenous elements 
+  it accepts only homogenious elements.
+  
+->we can predict the order of the data 
+  default natural sorting order is ascending
+  
+->duplicate objects are not allowed
+->null insertion is not possible.
+
+
+SortedSet s = new TreeSet();
+
+
+Test4.java:
+`````````````
+package com.collections;
+
+import java.util.TreeSet;
+
+public class Test4 {
+
+	
+	public static void main(String[] args) {
+		
+		TreeSet<Integer> ts = new TreeSet<>();
+		
+		ts.add(8);
+		ts.add(89);
+		ts.add(6);
+		ts.add(765);
+		
+		System.out.println(ts);
+		
+		
+	}
+}
+
+--------------
+package com.collections;
+
+import java.util.TreeSet;
+
+public class Test4 {
+
+	
+	public static void main(String[] args) {
+		
+		TreeSet<String> ts = new TreeSet<>();
+		
+		ts.add("rk");
+		ts.add("abc");
+		ts.add("navin");
+		ts.add("vits");
+		
+		
+		System.out.println(ts);
+		
+		
+	}
+}
+
+note:
+if we want to add any objects to the SortedSet , it should be
+homogenious and aswell as Comaprable objects.
+
+Integer
+String 
+
+
+Student.java:
+````````````````
+package com.collections;
+
+public class Student implements Comparable<Student> {
+	
+	private int stid;
+	private String stname;
+	
+	
+	public int getStid() {
+		return stid;
+	}
+	public void setStid(int stid) {
+		this.stid = stid;
+	}
+	public String getStname() {
+		return stname;
+	}
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+	public Student(int stid, String stname) {
+		super();
+		this.stid = stid;
+		this.stname = stname;
+	}
+	
+	public Student()
+	{
+	
+	}
+	
+	public String toString()
+	{
+		return stid + " " +stname;
+	}
+	@Override
+	public int compareTo(Student o) {
+		
+	   if(this.getStid()>o.getStid())
+	   {
+		   return -9;
+	   }
+	   else if(this.getStid()<o.getStid())
+	   {
+		   return 9;
+	   }
+		  
+	   else
+	   {
+		   return 0;
+	   }
+		
+	}
+	
+
+}
+
+Test4.java:
+````````````
+package com.collections;
+
+import java.util.TreeSet;
+
+public class Test4 {
+
+	
+	public static void main(String[] args) {
+		
+		TreeSet<Student> ts = new TreeSet<>();
+		
+		ts.add(new Student(10,"rk"));
+		ts.add(new Student(7,"abc"));
+		ts.add(new Student(89,"pranay"));
+		
+		
+		
+		System.out.println(ts);
+		
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	
 	
