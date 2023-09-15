@@ -1434,16 +1434,289 @@ public class Test1 {
 
 }
 
+java.util package 
+
+         Collection 
+ List
+              Queue
+                            Set
+                            SortedSet
+ 
+
+ArrayList
+
+  ->if our requirement is accessing, then we will go 
+    for ArrayList
+	
+    RandomAccess 
+	
+	
+LinkedList
+  if my requirement is insertion/deletion/updation 
+     ->internally doubley linkedlist algorithm 
+	 ->node based elemenets got inserted
+	 
+	 
+
+Set:
+````
+->it allows both homogenious and heterogenous objects
+->insertion order is not preserved
+->duplicates are not allowed
+->null insertion is possible but only for one time
+
+
+  ->HashSet
+  ->LinkedHashSet
+  
+  
+
+class HashSet implements Set extends Collection 
+{
+
+
+}
+
+   Set s = new HashSet();
+   
+   
 
 
 
 
 
 
+  ArrayList al = new ArrayList();
+    al.add(Integer.valueOf(8));
+	
+	
+	int
+	Integer
+	
+	
+	jdk 1.5 version onwards 
+	
+	primitive values -> object types(autoboxing)
+	object types -> primitive types (autounboxing)
+	
+	
+package com.collections;
+
+import java.util.LinkedHashSet;
+
+public class Test2 {
+
+	
+	public static void main(String[] args) {
+		
+		//creating the object for HashSet
+		
+		LinkedHashSet hs = new LinkedHashSet();
+		
+		hs.add(67);
+		hs.add(7.8f);
+		hs.add(null);
+		hs.add(67);
+		hs.add(true);
+		hs.add(null);
+		
+	
+		//foreach loop
+		
+		for(Object o:hs)
+		{
+			System.out.println(o);
+		}
+		
+		
+	}
+}
+	
+	
+Test2.java:
+``````````
+package com.collections;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+
+public class Test2 {
+
+	
+	public static void main(String[] args) {
+		
+		HashSet hs = new HashSet();
+		
+		Student st1 = new Student(100,"rk");
+		Student st2  = new Student(101,"navin");
+		Student st3 = new Student(102,"vandana");
+		
+		
+		hs.add(st1);
+		hs.add(st2);
+		hs.add(st3);
+		
+		for(Object o:hs)
+		{
+			System.out.println(o);
+		}
+		
+		
+	}
+}
+
+//Student.java:
+
+package com.collections;
+
+public class Student {
+	
+	private int stid;
+	private String stname;
+	
+	
+	public int getStid() {
+		return stid;
+	}
+	public void setStid(int stid) {
+		this.stid = stid;
+	}
+	public String getStname() {
+		return stname;
+	}
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+	public Student(int stid, String stname) {
+		super();
+		this.stid = stid;
+		this.stname = stname;
+	}
+	
+	public Student()
+	{
+	
+	}
+	
+	public String toString()
+	{
+		return stid + " " +stname;
+	}
+	
+
+}
 
 
+----------------
+package com.collections;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+
+public class Test2 {
+
+	
+	public static void main(String[] args) {
+		
+		HashSet<Integer> hs = new HashSet<>();
+		
+		
+		for(int i=1;i<=10;i++) {
+			hs.add(i);
+		}
+
+		
+		
+		
+        for(Integer x:hs) {
+        	
+        	
+        	if(x%2==0) {
+        		System.out.println(x);
+        	}
+        }
+	}
+}
 
 
+---------------------
+Student.java:
 
+package com.collections;
+
+public class Student {
+	
+	private int stid;
+	private String stname;
+	
+	
+	public int getStid() {
+		return stid;
+	}
+	public void setStid(int stid) {
+		this.stid = stid;
+	}
+	public String getStname() {
+		return stname;
+	}
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+	public Student(int stid, String stname) {
+		super();
+		this.stid = stid;
+		this.stname = stname;
+	}
+	
+	public Student()
+	{
+	
+	}
+	
+	public String toString()
+	{
+		return stid + " " +stname;
+	}
+	
+
+}
+
+Test2.java:
+```````````
+package com.collections;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+
+public class Test2 {
+
+	
+	public static void main(String[] args) {
+		
+		HashSet<Student> hs = new HashSet<>();
+		
+		
+		
+		hs.add(new Student(100,"Rk"));
+		hs.add(new Student(101,"navin"));
+		hs.add(new Student(102,"vits"));
+		
+
+		for(Student s: hs) {
+			
+			if(s.getStname().startsWith("v"))
+			{
+				System.out.println(s.getStname());
+			}
+		}
+		
+		
+	}
+}
+
+
+	
+	
+	
 
 
