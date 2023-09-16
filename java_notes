@@ -2222,8 +2222,125 @@ public class Test1 {
 }
 
 
+//
+
+package com.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class Test2 {
+	
+	public static void main(String[] args) throws Exception {
+		
+		//load the driver class
+		
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","system");
+		
+		Statement st = con.createStatement();
+		
+		int x = st.executeUpdate("delete from student where stid=101");
+		
+		
+		System.out.println(x + "row(s) deleted");
+		
+		con.close();
+		
+		
+	}
+
+}
 
 
+--------------------------
+package com.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Test2 {
+	
+	public static void main(String[] args) throws Exception {
+		
+		//load the driver class
+		
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","system");
+		
+		Statement st = con.createStatement();
+		
+		ResultSet rs = st.executeQuery("select * from student");
+		
+		while(rs.next())
+		{
+			System.out.println(rs.getInt(1) + " " + rs.getString(2));
+		}
+		
+		
+		con.close();
+		
+		
+	}
+
+}
+
+
+
+
+
+
+-----------------------------
+package com.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class Test2 {
+
+	public static void main(String[] args) throws Exception {
+
+		// load the driver class
+
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "system");
+
+		PreparedStatement ps= con.prepareStatement("insert into student values(?,?)");
+
+		Scanner s= new Scanner(System.in);
+		
+		System.out.println("enter the student id");
+		
+		int x = s.nextInt();
+		
+		System.out.println("enter the student name");
+		
+		String y= s.next();
+		
+		ps.setInt(1,x);
+		ps.setString(2, y);
+		
+		
+		int z = ps.executeUpdate();
+		
+		System.out.println(z+ "row(s) inserted");
+		
+		
+		
+		
+		
+	}
+}
+
+differnce between Statement and PreparedStatement?
 
 
 
