@@ -2033,7 +2033,175 @@ public class MyComparator implements Comparator<Integer> {
 
 
 
+Map:
+````
 
+   (key,value) pairs
+   
+   key-object
+   value -object
+   
+   Map 
+      interface 
+	  
+   interface SortedMap extends Map{
+   }
+   
+     put(key,value);
+	 
+   
+   
+	  
+package com.collections;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
+public class Test7 {
+	
+	public static void main(String[] args) {
+		
+		TreeMap hm = new TreeMap(new MyComparator());
+		
+		hm.put(100, "rama");
+		hm.put(78, "vits");
+		hm.put(45, "xyz");
+		hm.put(100, "rk");
+		hm.put(101, "rk");
+		
+		
+		
+		Set<Map.Entry<Integer,String>> s = hm.entrySet();
+		
+		for(Map.Entry m:s)
+		{
+			System.out.println(m.getKey() + " "  + m.getValue());
+		}
+		
+		
+	}
+
+}
+	  
+day-5(16th sep,2023)
+````````````````````
+
+multithreading
+
+overview of database(ddl,dml,drl)-oracle
+
+jdbc 
+
+java8 features
+
+
+multithreading:
+````````````````
+->multiple threads
+
+thread->task
+
+
+Test1.java:
+`````````````
+package com.multithreading;
+
+public class Test1 extends Thread {
+
+	public void run() {
+		for (int i = 1; i <= 10; i++) {
+			System.out.println(Thread.currentThread().getName() + "->" + i);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ie) {
+				System.out.println(ie);
+			}
+		}
+	}
+
+}
+
+Test2.java:
+``````````````
+package com.multithreading;
+
+public class Test2 extends Thread {
+
+	public void run() {
+		for (int i = 1; i <= 10; i++) {
+			System.out.println(Thread.currentThread().getName() + "->" + i);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ie) {
+				System.out.println(ie);
+			}
+		}
+	}
+}
+
+Test3.java:
+```````````
+package com.multithreading;
+
+public class Test3 {
+	
+	public static void main(String[] args) {
+		
+		
+		Test1 t1 = new Test1();
+		t1.setName("rk");
+		t1.start();
+		
+		Test2 t2 = new Test2();
+		t2.setName("navin");
+		t2.start();
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+  
+  
+  
+  
 
 	
 	
