@@ -2527,6 +2527,25 @@ public class DisplayServlet extends HttpServlet {
 }
 
 
+servlet communication
+```````````````````````
+
+   RequestDispatcher -interface 
+   
+   HttpServletRequest we have one method is there
+     
+	 RequestDispatcher rd = request.getRequestDispatcher();
+	 
+	 rd.forward(request,response)
+	    source servlet -> destination resource 
+		
+		
+	 rd.include();
+	     it is used to include the response of destination 
+		 resource .
+		 
+		 
+   
 
 
 
@@ -2534,7 +2553,77 @@ public class DisplayServlet extends HttpServlet {
 
 
 
+index.html:
+````````````
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+ 
+ <%--scriptlet tag --%>
+<%
 
+  int x = Integer.parseInt(request.getParameter("t1"));
+  int y = Integer.parseInt(request.getParameter("t2"));
+  int z = x+y;
+  //out.println("the sum is: " + z);
+
+%>
+
+<%= "the sum is: " +z %>
+
+<%--declarative tag --%>
+<%!
+  public int square(int x)
+  {
+	return x*x;
+  }
+
+%>
+ 
+</body>
+</html>
+
+index.jsp:
+```````````
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+ 
+ <%--scriptlet tag --%>
+<%
+
+  int x = Integer.parseInt(request.getParameter("t1"));
+  int y = Integer.parseInt(request.getParameter("t2"));
+  int z = x+y;
+  //out.println("the sum is: " + z);
+
+%>
+
+<%= "the sum is: " +z %>
+
+<%--declarative tag --%>
+<%!
+  public int square(int x)
+  {
+	return x*x;
+  }
+
+%>
+ 
+</body>
+</html>
 
 
 
