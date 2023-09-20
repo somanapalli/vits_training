@@ -2355,8 +2355,54 @@ differnce between Statement and PreparedStatement?
 
 
 
+String url = "jdbc:mysql://localhost:3306/your_database_name";
+        String username = "your_username";
+        String password = "your_password";
+
+        try {
+            // Step 1: Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
 
+com.mysql.cj.jdbc.Driver
+
+jdbc:mysql://localhost:3306/sys
+
+
+
+package com.vits.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class Test1 {
+	
+	public static void main(String[] args) throws Exception {
+		
+		
+		//load the driver class
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		System.out.println("driver class loaded");
+		//obtain the connection 
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "root");
+		
+		System.out.println("i got the connection ");
+		
+		Statement st = con.createStatement();
+		
+		int x = st.executeUpdate("insert into emp values(400,'vaishnavi')");
+		System.out.println(x + "row(s) inserted");
+		
+		//close the connection 
+		con.close();
+		
+		
+	}
+
+}
 
 
 
