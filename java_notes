@@ -2472,6 +2472,59 @@ web.xml:(src/main/web-app/WEB-INF/web.xml)
 
 
 
+index.html:
+````````````
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+  <form method="post" action="getMessage">
+   
+    Enter First Number: <input type="text" name="t1"/><br/>
+    Enter Second Number: <input type="text" name="t2"/><br/>
+    
+    <input type="submit" value="sum"/>
+    
+  </form>
+
+</body>
+</html>
+
+DisplayServlet.java:
+```````````````````````
+package com.vits;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class DisplayServlet
+ */
+@WebServlet("/getMessage")
+public class DisplayServlet extends HttpServlet {
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		  int fno = Integer.parseInt(request.getParameter("t1"));
+		  int sno = Integer.parseInt(request.getParameter("t2"));
+		  
+		  int result = fno + sno;
+		  
+		  response.getWriter().println("<h1> The sum is: " +result + " </h1>");
+	}
+
+	
+}
 
 
 
