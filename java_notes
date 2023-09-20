@@ -2408,6 +2408,67 @@ public class Test1 {
 
 
 
+https://github.com/somanapalli/vits_training
+
+ 
+WelcomeServlet.java:
+````````````````````
+package com.vits;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class WelcomeServlet extends HttpServlet {
+	
+	public void init()
+	{
+		System.out.println("init method got executed only once");
+	}
+
+	//business logic
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("executed many times");
+		
+	}
+	
+	//overriding destroy()
+	public void destroy()
+	{
+		System.out.println("destroy got executed");
+	}
+	
+	
+
+}
+
+web.xml:(src/main/web-app/WEB-INF/web.xml)
+``````````
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+	<servlet>
+		<servlet-name>rk</servlet-name>
+		<servlet-class>com.vits.WelcomeServlet</servlet-class>
+
+	</servlet>
+
+	<servlet-mapping>
+
+		<servlet-name>rk</servlet-name>
+		<url-pattern>/display</url-pattern>
+
+
+	</servlet-mapping>
+
+
+
+</web-app>
 
 
 
