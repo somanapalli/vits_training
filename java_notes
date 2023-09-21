@@ -2838,6 +2838,774 @@ applicationContext.xml:
 
 </beans>
 
+---------------------------------------------------------------
+how to inject reference type values:
+````````````````````````````````````
+Student.java:
+`````````````
+package com.sopra.beans;
+
+public class Student {
+	
+	private Address address;
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
+	public Student()
+	{
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Student [address=" + address + "]";
+	}
+	
+
+}
+
+
+Address.java:
+`````````````
+package com.sopra.beans;
+
+public class Address {
+	
+	private String cityName;
+	private String stateName;
+	private String countryName;
+	
+	
+	
+	public String getCityName() {
+		return cityName;
+	}
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+	public String getStateName() {
+		return stateName;
+	}
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
+	public String getCountryName() {
+		return countryName;
+	}
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
+	}
+	
+	
+	public Address()
+	{
+		
+	}
+	@Override
+	public String toString() {
+		return "Address [cityName=" + cityName + ", stateName=" + stateName + ", countryName=" + countryName + "]";
+	}
+
+}
+
+springcontext.xml:
+```````````````````
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+   <bean id="stu" class="com.sopra.beans.Student">
+   
+       <property name="address">
+       
+          <ref bean="add"/>
+          
+       </property>  
+       
+    </bean>
+    
+    <bean id="add" class="com.sopra.beans.Address">
+    
+       <property name="cityName" value="Hyd"/>
+       <property name="stateName" value="Tel"/>
+       <property name="countryName" value="India"/>
+    
+    </bean>
+
+
+</beans>
+
+Test.java:
+```````````
+package com.sopra.beans;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+	
+	public static void main(String[] args) {
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("springcontext.xml");
+		
+		Student stu = (Student)context.getBean("stu");
+		
+		System.out.println("city name is : " + stu.getAddress().getCityName());
+		System.out.println("state name is: " + stu.getAddress().getStateName());		
+		System.out.println("country name is: " + stu.getAddress().getCountryName());
+	}
+
+}
+
+
+
+how to inject collection type values (list,set,map):
+````````````````````````````````````````````````````
+Student.java:
+``````````````
+package com.sopra.beans;
+
+import java.util.List;
+
+public class Student {
+	
+	private int stid;
+	private String stname;
+	private List<String> subjects;
+	
+	
+	public int getStid() {
+		return stid;
+	}
+	public void setStid(int stid) {
+		this.stid = stid;
+	}
+	public String getStname() {
+		return stname;
+	}
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+	public List<String> getSubjects() {
+		return subjects;
+	}
+	public void setSubjects(List<String> subjects) {
+		this.subjects = subjects;
+	}
+	@Override
+	public String toString() {
+		return "Student [stid=" + stid + ", stname=" + stname + ", subjects=" + subjects + "]";
+	}
+	
+	
+	public Student()
+	{
+		
+	}
+	
+}
+
+
+springcontext.xml:
+`````````````````
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+   <bean id="stu" class="com.sopra.beans.Student">
+   
+     <property name="stid" value="100"/>
+     <property name="stname" value="Ram"/>
+     <property name="subjects">
+         <list>
+            <value>english</value>
+            <value>science</value>
+            <value>Hindhi</value>
+         
+         </list>
+     
+     </property>
+   
+   </bean>
+</beans>
+
+Test.java:
+````````````
+package com.sopra.beans;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+	
+	public static void main(String[] args) {
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("springcontext.xml");
+		
+		Student stu = (Student)context.getBean("stu");
+		
+		System.out.println(stu);
+	}
+
+}
+
+
+assignments:
+```````````````
+inject collection type values (set & map)
+
+
+  -how to inject reference type values
+  -how to inject collection type values (list)
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+autowiring:
+```````````
+Autowiring feature of spring framework enables you to 
+inject the object dependency implicitly. 
+
+
+It internally uses setter or constructor injection
+
+
+note:
+if we want to achieve autowiring we have to use 
+autowire attribute for a bean element.
+
+
+<bean id="stu" class="com.vits.Student" autowire=""/>
+possible values:
+                 byName
+				 byType
+				    setter injection 
+					
+				 Constructor
+				    
+				 
+				 
+if autowire=byName
+
+springcontext.xml:
+```````````````````
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+   <bean id="stu" class="com.sopra.beans.Student" autowire="byName"/>
+  
+    
+    <bean id="address" class="com.sopra.beans.Address">
+    
+       <property name="cityName" value="Hyd"/>
+       <property name="stateName" value="Tel"/>
+       <property name="countryName" value="India"/>
+    
+    </bean>
+
+
+</beans>
+
+Student.java:
+``````````````
+package com.sopra.beans;
+
+public class Student {
+	
+	private Address address;
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
+	public Student()
+	{
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Student [address=" + address + "]";
+	}
+	
+
+}
+
+
+note:
+`````
+when we are using either autowire attribute values are byName or byType internally setter injection will happen.
+
+if we use autowire attribute value as constructor internally it uses byType only but constructor  injection will happen.
+
+
+springcontext.xml:
+``````````````````
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+   <bean id="stu" class="com.sopra.beans.Student" autowire="constructor"/>
+  
+    
+    <bean class="com.sopra.beans.Address">
+    
+       <property name="cityName" value="Hyd"/>
+       <property name="stateName" value="Tel"/>
+       <property name="countryName" value="India"/>
+    
+    </bean>
+
+
+</beans>
+
+
+annotation based wiring:
+`````````````````````````
+So instead of using XML to describe a bean wiring, 
+you can move the bean configuration into the component class
+itself by using annotations on the relevant class, method, or field declaration.
+
+
+in case of annotation based wiring autowire attribute is not required
+for a bean element.
+
+we have to add @autowired annotation in the java bean class.
+
+we no need to maintain any setter,or constructor for a bean class.
+
+note:
+````
+by default spring container could not recognize these annotations , to recognize
+we have to add one xml element in spring configuration file
+ <context:annotation-config/>
+ 
+note:
+````
+to make it execute this , we have to add one more jar spring-aop 
+
+
+Student.java:
+``````````````
+package com.sopra.beans;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class Student {
+	
+	@Autowired
+	private Address address;
+
+	public Student()
+	{
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Student [address=" + address + "]";
+	}
+	
+
+}
+
+springcontext.xml:
+``````````````````
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:annotation-config></context:annotation-config>
+   <bean id="stu" class="com.sopra.beans.Student"/>
+  
+    
+    <bean class="com.sopra.beans.Address">
+    
+       <property name="cityName" value="Hyd"/>
+       <property name="stateName" value="Tel"/>
+       <property name="countryName" value="India"/>
+    
+    </bean>
+
+
+</beans>
+
+Test.java:
+``````````
+package com.sopra.beans;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+	
+	public static void main(String[] args) {
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("springcontext.xml");
+		
+		Student stu = (Student)context.getBean("stu");
+		System.out.println(stu);
+	}
+
+}
+
+
+
+ 
+ 
+autodisovery:
+``````````````
+Autodiscovery feature frees us from writing all bean declarations
+and bean autowirings.
+
+Note:
+`````
+this feature can be enabled by adding one xml element i.e.
+
+<context:component-scan base-package=""/>
+
+
+@Component annotation:
+``````````````````````
+@Component is an annotation that allows Spring to automatically detect 
+our custom beans. In other words, without having to write any explicit code,
+Spring will: Scan our application for classes annotated with @Component.
+ 
+ Instantiate them and inject any specified dependencies into them. 
+ Inject them wherever needed.
+
+
+Student.java:
+`````````````
+package com.sopra.beans;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Student {
+	
+	@Autowired
+	private Address address;
+
+	public Student()
+	{
+		
+	}
+
+	@Override
+	public String toString() {
+		return "Student [address=" + address + "]";
+	}
+	
+
+}
+
+springcontext.xml:
+``````````````````
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:component-scan base-package="com.sopra.beans"></context:component-scan>
+  
+    
+    <bean class="com.sopra.beans.Address">
+    
+       <property name="cityName" value="Hyd"/>
+       <property name="stateName" value="Tel"/>
+       <property name="countryName" value="India"/>
+    
+    </bean>
+
+
+</beans>
+
+Test.java:
+```````````
+package com.sopra.beans;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+	
+	public static void main(String[] args) {
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("springcontext.xml");
+		
+		Student stu = (Student)context.getBean("student");
+		System.out.println(stu);
+	}
+
+}
+
+  
+
+ -autowiring (byName,byType,constructor)
+ -annotation based wiring(@autowired)
+ -autodiscovery(@Component)
+ @Qualifier annotation
+````````````````````
+
+The @Qualifier annotation is used to resolve the autowiring conflict, 
+when there are multiple beans of same type.
+
+
+College.java:
+`````````````
+package com.sopra.beans;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+public class College {
+	
+	@Autowired
+	@Qualifier("stu2")
+	private Student student;
+
+	@Override
+	public String toString() {
+		return "College [student=" + student + "]";
+	}
+	
+	public College()
+	{
+		
+	}
+	
+
+}
+
+
+Student.java:
+`````````````
+package com.sopra.beans;
+
+public class Student {
+	
+	private int stid;
+	private String stname;
+	public int getStid() {
+		return stid;
+	}
+	public void setStid(int stid) {
+		this.stid = stid;
+	}
+	public String getStname() {
+		return stname;
+	}
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+	
+	
+   public Student()
+   {
+	   
+   }
+@Override
+public String toString() {
+	return "Student [stid=" + stid + ", stname=" + stname + "]";
+}
+   
+   
+}
+
+
+Test.java:
+```````````
+package com.sopra.beans;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Test {
+	
+	public static void main(String[] args) {
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("springcontext.xml");
+		College col = (College)context.getBean("college");
+		System.out.println(col);
+		
+	}
+
+}
+
+springcontext.xml:
+```````````````````
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+ <context:annotation-config></context:annotation-config>
+  
+ <bean id="college" class="com.sopra.beans.College">
+      
+     
+ </bean>
+ 
+ <bean id="stu1" class="com.sopra.beans.Student">
+ 
+    <property name="stid" value="100"/>
+    <property name="stname" value="ram"/>
+ </bean>
+ 
+ <bean id="stu2" class="com.sopra.beans.Student">
+ 
+    <property name="stid" value="200"/>
+    <property name="stname" value="nandini"/>
+ </bean>
+ 
+ 
+
+
+</beans>
+
+
+java based configuration in spring:
+``````````````````````````````````
+Java-based configuration option enables you to write most of your Spring 
+configuration without XML but with the help of few Java-based annotations
+
+@Configuration
+
+the class which is annotated with @Configuration it represents it contains configurable information.
+
+
+Annotating a class with the @Configuration indicates that the class can be  used by the Spring IoC container as a source of bean definitions. 
+
+
+The @Bean annotation tells Spring that a method annotated with @Bean will return an object that should be registered as a bean in the Spring application context.
+
+
+
+Student.java:
+`````````````
+package com.sopra;
+
+public class Student {
+	
+	private int stid;
+	private String stname;
+	public int getStid() {
+		return stid;
+	}
+	public void setStid(int stid) {
+		this.stid = stid;
+	}
+	public String getStname() {
+		return stname;
+	}
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+	
+	public Student()
+	{
+		
+	}
+
+}
+
+MyConfig.java:
+``````````````
+package com.sopra;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class MyConfig {
+	
+	@Bean("stu")
+	public Student getStudent()
+	{
+		return new Student();
+	}
+	
+
+}
+
+
+App.java:
+``````````
+package com.sopra;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+       
+    	ApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
+    	Student stu = (Student)context.getBean("stu");
+    	stu.setStid(100);
+    	stu.setStname("ram");
+    	
+    	System.out.println("student id: " + stu.getStid());
+    	System.out.println("student name: " + stu.getStname());
+    	
+    }
+}
 
        
   
