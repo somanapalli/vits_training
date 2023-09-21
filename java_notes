@@ -2626,6 +2626,90 @@ index.jsp:
 </html>
 
 
+maven:
+build automation tool
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.vits</groupId>
+  <artifactId>jdbc_mysql_maven</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>jdbc_mysql_maven</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
+
+  <dependencies>
+  
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.33</version>
+</dependency>
+    
+  </dependencies>
+</project>
+
+Test1.java:
+```````````
+package com.vits;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class Test1 {
+
+	public static void main(String[] args) throws Exception {
+		// load the driver class
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		System.out.println("driver class loaded");
+		// obtain the connection
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys", "root", "root");
+		System.out.println("i got the connection ");
+		Statement st = con.createStatement();
+		int x = st.executeUpdate("insert into emp values(500,'vandana')");
+		System.out.println(x + "row(s) inserted");
+		// close the connection
+		con.close();
+
+	}
+
+}
+
+maven goals:
+
+maven build...
+
+goal: clean 
+goal: install
+goal: clean install
+
+for core java project 
+
+maven archetype: quickstart
+
+for java web projects:
+
+maven archetype: web-app
+
 
 
        
