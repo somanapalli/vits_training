@@ -4046,7 +4046,8 @@ Student address: ${staddress}
 
 
 
-how to add the java object to ModelAndView and make it displayed in view page:
+how to add the java object to ModelAndView and make it 
+displayed in view page:
 ````````````````````````````````````````````````````````````````````````````````
 HelloController.java:
 `````````````````````
@@ -4451,6 +4452,291 @@ public class RegistrationController {
 
 }
   
+
+spring orm crud use case:
+``````````````````````````
+1.create a table in the database
+   -it is optional
+   
+2.create a spring configuration file(springcontext.xml)
+  -it contains information of SessionFactory,DataSource...
+  
+3.Create Student.java file
+   -it is the persistent class/entity class/model class
+   
+4.create StudentDao.java
+   -it is the dao class that uses HibernateTemplate 
+
+5.create Test file
+   -it calls methods of EmployeeDao 
+   
+   
+Student.java:
+```````````````
+package com.sopra.beans;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Student {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String firstName;
+	private String lastName;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+	}
+	
+	
+
+}
+
+StudentDao.java:
+````````````````
+
+package com.sopra.dao;
+
+import com.sopra.beans.Student;
+
+public interface StudentDao {
+	
+	int saveStudent(Student student);
+	
+
+}
+
+
+StudentDaoImpl.java:
+`````````````````````
+package com.sopra.dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sopra.beans.Student;
+
+
+public class StudentDaoImpl implements StudentDao {
+
+	@Autowired
+	private HibernateTemplate template;
+	
+	
+	public HibernateTemplate getTemplate() {
+		return template;
+	}
+
+
+	public void setTemplate(HibernateTemplate template) {
+		this.template = template;
+	}
+
+
+	@Transactional
+	public int saveStudent(Student student) {
+		
+		Integer result=(Integer)template.save(student);
+		
+		return result;
+	}
+
+}
+
+
+Test.java:
+```````````
+package com.sopra;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.sopra.beans.Student;
+import com.sopra.dao.StudentDao;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+   public static void main(String[] args) {
+	
+	   
+	   ApplicationContext context = new ClassPathXmlApplicationContext("springcontext.xml");
+	   
+	   StudentDao dao = (StudentDao)context.getBean("dao");
+	   
+	   Student stu = new Student();
+	   stu.setFirstName("ram");
+	   stu.setLastName("sopra");
+	   
+	   int x = dao.saveStudent(stu);
+	   System.out.println(x + "row(s) inserted");
+}
+}
+
+
+
+springcontext.xml:
+```````````````````
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+     <tx:annotation-driven/>
+     <context:component-scan base-package="com.sopra"></context:component-scan>
+
+	<bean id="dao" class="com.sopra.dao.StudentDaoImpl">
+
+		<property name="template" ref="template" />
+
+	</bean>
+
+	<bean id="template"
+		class="org.springframework.orm.hibernate5.HibernateTemplate">
+
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
+	<bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="ds" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.sopra.beans.Student</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+
+			<props>
+			    <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+
+			</props>
+
+		</property>
+
+	</bean>
+
+
+	<bean id="ds"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="sopra" />
+		<property name="password" value="sopra" />
+
+	</bean>
+
+
+    <bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" name="transactionManager">
+    
+         <property name="sessionFactory" ref="mySessionFactory"/>
+    
+    </bean>
+
+
+
+</beans>
+
+pom.xml:
+````````
+    ->spring context
+	->hibernate core
+	->spring orm 
+	
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.sopra</groupId>
+	<artifactId>spring-orm-deom</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>spring-orm-deom</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>5.3.10</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.5.7.Final</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>5.3.10</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+</project>
+
+
 
 	
 	
