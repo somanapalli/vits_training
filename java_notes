@@ -4851,7 +4851,367 @@ result.jsp:
 </html>
 
 	
+spring orm mvc registration application:
+`````````````````````````````````````````
+EmployeeController.java:
+```````````````````````
+package com.sopra.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.sopra.entity.Employee;
+import com.sopra.service.EmployeeService;
+
+@Controller
+public class EmployeeController {
+
+	 @Autowired
+	 private EmployeeService service;
+	 
+	 public EmployeeService getService() {
+		return service;
+	}
+
+	public void setService(EmployeeService service) {
+		this.service = service;
+	}
+
+	@RequestMapping("registrationPage")
+		public String showRegistrationPage() {
+			return "userReg";
+		}
+
 	
+		@RequestMapping(value = "registerUser", method = RequestMethod.POST)
+		public ModelAndView registerUser(@RequestParam("empid") int empid,@RequestParam("firstName") String firstName,@RequestParam("lastName") String lastName ) {
+			
+			Employee emp = new Employee();
+			emp.setId(empid);
+			emp.setFirstName(firstName);
+			emp.setLastName(lastName);
+			
+			
+			int result = service.save(emp);
+			
+			
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("result", "employee created with empid: " + result);
+            mv.setViewName("userReg");
+            return mv;
+            
+			
+		}
+
+	
+	
+	 
+}
+
+EmployeeService.java:
+`````````````````````
+package com.sopra.service;
+
+import com.sopra.entity.Employee;
+
+public interface EmployeeService {
+
+	int save(Employee emp);
+}
+
+EmployeeServiceImpl.java:
+`````````````````````````
+package com.sopra.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sopra.dao.EmployeeDao;
+import com.sopra.entity.Employee;
+import com.sopra.service.EmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+	 @Autowired
+	 private EmployeeDao dao;
+
+	public EmployeeDao getDao() {
+		return dao;
+	}
+
+	public void setDao(EmployeeDao dao) {
+		this.dao = dao;
+	}
+
+	@Override
+	@Transactional
+	public int save(Employee emp) {
+		//business logic
+		return dao.create(emp);
+	}
+	 
+}
+
+EmployeeDao.java:
+`````````````````
+package com.sopra.dao;
+
+import com.sopra.entity.Employee;
+
+public interface EmployeeDao {
+ 
+	int create(Employee emp);
+}
+
+EmployeeDaoImpl.java:
+`````````````````````
+package com.sopra.dao.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.sopra.dao.EmployeeDao;
+import com.sopra.entity.Employee;
+
+@Repository
+public class EmployeeDaoImpl implements EmployeeDao {
+
+	 @Autowired
+	 private HibernateTemplate template;
+
+	public HibernateTemplate getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(HibernateTemplate template) {
+		this.template = template;
+	}
+
+	@Override
+	
+	
+	public int create(Employee emp) {
+		
+		Integer result = (Integer)template.save(emp);
+		System.out.println(emp.getId());
+		return result;
+	}
+	 
+	 
+}
+
+Employee.java:
+````````````````
+package com.sopra.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="employee")
+public class Employee {
+	
+	@Id
+	@Column(name="id")
+	private int id;
+	@Column(name="firstname")
+	private String firstName;
+	@Column(name="lastname")
+	private String lastName;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+    public Employee()
+    {
+    	
+    }
+	public Employee(int id, String firstName, String lastName) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+    
+	public String toString()
+	{
+		return id + " " + firstName + " " +lastName;
+	}
+    
+}
+
+note: ojdbc6.jar must be added to the buildpath and lib folder of
+application.
+
+userReg.jsp:
+`````````````
+<%@ page isELIgnored="false" language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Registraion Page</title>
+</head>
+<body>
+<h2> Employee Registration Page</h2>
+
+
+
+<form action="registerUser" method="post">
+<pre>
+ Enter Employee Id: <input type="text" name="empid"/><br/>
+ Enter Employee FirstName: <input type="text" name="firstName"/><br/>
+ Enter Employee LastName: <input type="text" name="lastName"/><br/>
+ 
+ <input type="submit" value="register"/>
+</pre>
+</form>
+<br/>
+${result}
+
+
+</body>
+</html>
+
+web.xml:
+````````
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<web-app>
+	<servlet>
+		<servlet-name>sopra</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>sopra</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>
+
+
+sopra-servlet.xml:
+``````````````````
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<context:component-scan
+		base-package="com.sopra"/>
+        
+<tx:annotation-driven/>
+
+	
+
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="sopra"></property>
+		<property name="password" value="sopra"></property>
+	</bean>
+
+	<bean id="mysessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		
+		<property name="dataSource" ref="dataSource"></property>
+
+		<property name="annotatedClasses">
+			<list>
+				<value>com.sopra.entity.Employee</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle9Dialect</prop>
+				 <prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+
+			</props>
+		</property>
+	</bean>
+
+	<bean id="template"
+		class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="mysessionFactory"></property>
+	</bean>
+
+
+	<bean
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+		name="transactionManager">
+		<property name="sessionFactory" ref="mysessionFactory" />
+	</bean>
+
+
+
+<bean id="view" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+
+   <property name="prefix">
+     <value>/WEB-INF/jsps/</value>
+   </property>
+   
+   <property name="suffix">
+      <value>.jsp</value>
+   </property>
+</bean>
+
+
+
+
+</beans>
+
+
+pom.xml:
+`````````
+required dependencies:
+
+ 
+  -spring orm
+  -spring web mvc
+  -hibernate core
+  -mysql	
 	
 
 
