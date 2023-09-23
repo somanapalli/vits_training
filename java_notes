@@ -4736,7 +4736,119 @@ pom.xml:
 	</dependencies>
 </project>
 
+spring web mvc module java based configuration:
+``````````````````````````````````````````````
+note: spring vesrion : 5.3.8
 
+spring web mvc application w.r.to java based configuration:
+````````````````````````````````````````````````````````````
+
+index.jsp:
+`````````
+<html>
+<body>
+
+<form action="greet">
+<input type="submit" value="press to greet">
+
+</form>
+</body>
+</html>
+
+
+GreetController.java:
+````````````````````
+package com.sopra.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class GreetController {
+	
+	@RequestMapping("/greet")
+	public ModelAndView showView()
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("result");
+		mv.addObject("res","Sopra welcomes you to Spring");
+		
+		return mv;
+	}
+
+}
+
+MyConfig.java:
+`````````````
+package com.sopra.web;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+
+@Configuration
+public class MyConfig implements WebMvcConfigurer {
+
+	
+	@Bean
+	public ViewResolver view()
+	{
+		InternalResourceViewResolver ivr = new InternalResourceViewResolver();
+		ivr.setPrefix("/WEB-INF/jsps/");
+		ivr.setSuffix(".jsp");
+		return ivr;
+	}
+	
+}
+
+WebInitializer.java:
+````````````````````
+package com.sopra.web;
+
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		// TODO Auto-generated method stub
+		return new Class[] {MyConfig.class};
+	}
+
+	@Override
+	protected String[] getServletMappings() {
+		// TODO Auto-generated method stub
+		return new String[] {"/"};
+	}
+
+}
+
+
+result.jsp:
+```````````
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"
+    isELIgnored="false"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+ ${res}
+</body>
+</html>
 
 	
 	
