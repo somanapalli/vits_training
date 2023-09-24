@@ -5279,8 +5279,100 @@ public class SpringbootExampleApplication {
 
 }
 
+spring boot with data jpa:
+````````````````````````````
+package com.techm.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Student {
+	
+	@Id
+	private int stid;
+	private String stname;
+	public int getStid() {
+		return stid;
+	}
+	public void setStid(int stid) {
+		this.stid = stid;
+	}
+	public String getStname() {
+		return stname;
+	}
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+	
+	public Student()
+	{
+		
+	}
+	public Student(int stid, String stname) {
+		super();
+		this.stid = stid;
+		this.stname = stname;
+	}
+	
+	public String toString()
+	{
+		return stid + " " +stname;
+	}
+	
+
+}
+
+----------------------------
+package com.techm;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import com.techm.entity.Student;
+import com.techm.repository.StudentRepository;
+
+@SpringBootApplication
+public class SpringbootDataJpaDemo1Application {
+
+	public static void main(String[] args) {
+		
+	ApplicationContext context = SpringApplication.run(SpringbootDataJpaDemo1Application.class, args);
+	
+	    StudentRepository repo = context.getBean(StudentRepository.class);
+	    
+	    repo.save(new Student(100,"rama"));
+	}
+
+}
+
+---------------------------
+package com.techm.repository;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.techm.entity.Student;
+
+@Repository
+public interface StudentRepository extends CrudRepository<Student, Integer> {
+
+}
+
+-----------
+application.properties:
+````````````````````````
+
+spring.datasource.url=jdbc:mysql://localhost:3306/sys
+spring.datasource.username=root
+
+spring.datasource.password=root
+
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=create
 
 
 
