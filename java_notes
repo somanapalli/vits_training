@@ -5232,3 +5232,58 @@ required dependencies:
     <version>8.0.33</version>
 </dependency>
 
+
+
+spring boot:
+`````````````
+package com.vits.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+
+@RequestMapping("/api/v1")
+public class MyController {
+	
+	
+	@GetMapping("/display")
+	public String getMessage()
+	{
+		return "welcome to spring boot technology ";
+	}
+	
+
+}
+
+
+application.proeprties:
+```````````````````````
+server.port=9090
+
+
+package com.vits;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SpringbootExampleApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringbootExampleApplication.class, args);
+	
+	
+	}
+
+}
+
+
+
+
+
+
+
+
+
