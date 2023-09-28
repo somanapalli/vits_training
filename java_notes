@@ -5509,6 +5509,78 @@ public class Test3 {
 
 }
 
+https://github.com/somanapalli/vits_training
+
+
+
+Test4.java:
+````````````
+package com.vits;
+
+import java.util.TreeSet;
+
+public class Test4 {
+//int compare(T o1, T o2);
+	public static void main(String[] args) {
+		
+		
+		TreeSet<Student> ts = new 
+				TreeSet<Student>(
+						(o1,o2)->o1.getStname().compareTo(o2.getStname())
+						
+						);
+	
+		//it should be homogenious and comprable objects 
+		
+		ts.add(new Student(600,"pranay"));
+		ts.add(new Student(100,"nasira"));
+		
+		
+		System.out.println(ts);
+		
+	}
+	
+}
+
+Student.java:
+`````````````
+package com.vits;
+
+public class Student implements Comparable<Student>{
+	
+	private Integer stid;
+	private String stname;
+	public Integer getStid() {
+		return stid;
+	}
+	public void setStid(Integer stid) {
+		this.stid = stid;
+	}
+	public String getStname() {
+		return stname;
+	}
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+	@Override
+	public String toString() {
+		return "Student [stid=" + stid + ", stname=" + stname + "]";
+	}
+	public Student(Integer stid, String stname) {
+		super();
+		this.stid = stid;
+		this.stname = stname;
+	}
+	public Student() {
+		super();
+	}
+	@Override
+	public int compareTo(Student o) {
+		//return this.getStid().compareTo(o.getStid());
+		return this.getStname().compareTo(o.getStname());
+	}
+
+}
 
 
 
