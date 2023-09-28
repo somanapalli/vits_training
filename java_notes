@@ -5377,5 +5377,138 @@ spring.jpa.hibernate.ddl-auto=create
 
 
 
+-------------------------------------------------------------
+
+@Autowired
+	StudentRepository repo;
+	
+	@GetMapping("/hello")
+	public Student hello()
+	{
+		return new Student(100,"Rama");
+	}
+	
+	@PostMapping("/student")
+	public Student save(@RequestBody Student student)
+	{
+		return repo.save(student);
+	}
+	
+	@GetMapping("/student/{id}")
+	public Student getById(@PathVariable("id") Integer id)
+	{
+		return repo.findById(id).get();
+	}
+	
+	@GetMapping("/students")
+	public List<Student> getAllStudents()
+	{
+		return (List<Student>) repo.findAll();
+	}
+	
+	@PutMapping("/student/{id}")
+	public Student updateStudent(@RequestBody Student student)
+	{
+		return repo.save(student);
+	}
+	
+	@DeleteMapping("/student/{id}")
+	public String deleteById(@PathVariable("id") Integer id){
+		repo.deleteById(id);
+		return id + "th record deleted";
+		
+	}
+
+lambda expression:
+`````````````````
+nameless function
+
+rules:
+
+doesn't have access modifier
+doesn't have return type 
+doesn't have method name.
+
+
+->to produce concise code. 
+
+public void sum(){  System.out.println("sum"); }
+
+() -> System.out.println("sum");
+
+   
+public void sum(int x, int y){ 
+System.out.println(x+y);
+}
+
+(int x, int y) -> { System.out.println(x+y)}
+
+ (x,y)->System.out.println(x+y);
+
+
+pubic int getSum(int x, int y)
+{
+return x+y;
+}
+
+(x,y)->x+y;
+
+
+public String getGrade(String grade)
+{
+return grade;
+}
+
+(grade)->grade;
+
+ grade -> grade;
+ 
+
+package com.vits;
+
+public interface i1 {
+
+	void sum(int x, int y);
+}
+
+------------------------------
+package com.vits;
+//execution logic
+public class Test2 {
+	//void sum(int x, int y);
+	public static void main(String[] args) {
+		
+		i1 obj = (x,y)->System.out.println(x+y);
+		
+		obj.sum(4, 5);
+	}
+
+}
+
+----------------------------------------
+
+package com.vits;
+
+import java.util.TreeSet;
+
+public class Test3 {
+	
+	public static void main(String[] args) {
+		//int compare(T o1, T o2);
+		
+		TreeSet<String> ts = new TreeSet<String>((o1,o2)->o2.compareTo(o1));
+		
+		ts.add("sohel");
+		ts.add("manaswini");
+		ts.add("pranay");
+		ts.add("rk");
+		ts.add("vaishnavi");
+		
+		System.out.println(ts);
+	}
+
+}
+
+
 
 
